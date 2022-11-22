@@ -11,6 +11,11 @@ import (
 
 var client *http.Client
 
+type Result struct {
+	RaceNumber int     `json:"raceNumber"`
+	Meeting    Meeting `json:"meeting"`
+}
+
 type Meeting struct {
 	MeetingName string `json:"meetingName"`
 }
@@ -37,13 +42,13 @@ type Runner struct {
 
 func getRunners(context *gin.Context) {
 
-	url:= "https://api.beta.tab.com.au/v1/tab-info-service/racing/dates/2022-11-22/meetings/R/NEW/races/5?jurisdiction=QLD&returnPromo=false"
+	url := "https://api.beta.tab.com.au/v1/tab-info-service/racing/dates/2022-11-23/meetings/R/DBN/races/5?jurisdiction=QLD&returnPromo=false"
 
 	// var runners []Runner
-	var meeting Meeting
+	var result Result
 
 	// err := GetJson(url, runners)
-	err := GetJson(url, meeting)
+	err := GetJson(url, &result)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -59,13 +64,7 @@ func getRunners(context *gin.Context) {
 	// 	},
 	// }
 
-	context.IndentedJSON(http.StatusOK, meeting)
-
-	// if err := ; err != nil {
-	// 	return
-	// }
-
-	// context.JSON(http.StatusOK, gin.H{"data": runners})
+	context.IndentedJSON(http.StatusOK, result)
 }
 
 func GetJson(url string, target interface{}) error {
@@ -74,6 +73,8 @@ func GetJson(url string, target interface{}) error {
 		return err
 	}
 	defer r.Body.Close()
+
+	fmt.Println(r.Body)
 
 	return json.NewDecoder(r.Body).Decode(target)
 }
