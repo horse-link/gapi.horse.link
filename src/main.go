@@ -11,6 +11,10 @@ import (
 
 var client *http.Client
 
+type Meeting struct {
+	MeetingName string `json:"meetingName"`
+}
+
 type Runner struct {
 	Nonce    int    `json:"nonce"`
 	Number   int    `json:"number"`
@@ -33,11 +37,13 @@ type Runner struct {
 
 func getRunners(context *gin.Context) {
 
-	url:= "https://api.beta.tab.com.au/v1/tab-info-service/racing/dates/2022-11-22/meetings/R/WAG/races/5?jurisdiction=QLD&returnPromo=false"
+	url:= "https://api.beta.tab.com.au/v1/tab-info-service/racing/dates/2022-11-22/meetings/R/NEW/races/5?jurisdiction=QLD&returnPromo=false"
 
-	var runners []Runner
+	// var runners []Runner
+	var meeting Meeting
 
-	err := GetJson(url, runners)
+	// err := GetJson(url, runners)
+	err := GetJson(url, meeting)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -53,7 +59,7 @@ func getRunners(context *gin.Context) {
 	// 	},
 	// }
 
-	context.IndentedJSON(http.StatusOK, runners)
+	context.IndentedJSON(http.StatusOK, meeting)
 
 	// if err := ; err != nil {
 	// 	return
