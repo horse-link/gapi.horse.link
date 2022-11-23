@@ -31,6 +31,10 @@ type Runner struct {
 	PropositionId string `json:"proposition_id"`
 }
 
+func getHelloWorld(context *gin.Context) {
+	context.IndentedJSON(http.StatusOK, gin.H{"message": "Hello World!"})
+}
+
 func getRunners(context *gin.Context) {
 
 	url := "https://api.beta.tab.com.au/v1/tab-info-service/racing/dates/2022-11-23/meetings/R/DBN/races/5?jurisdiction=QLD&returnPromo=false"
@@ -74,6 +78,7 @@ func main() {
 	client = &http.Client{Timeout: 10 * time.Second}
 	router := gin.Default()
 
+	router.GET("/", getHelloWorld)
 	router.GET("/runners", getRunners)
 	router.Run(":8080")
 }
