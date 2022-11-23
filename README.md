@@ -1,2 +1,6 @@
 # gapi.horse.link
-Golang API for Horse.Link
+Golang micro service for Horse.Link
+
+## End points
+
+### /runners

@@ -31,15 +31,6 @@ type Runner struct {
 	PropositionId string `json:"proposition_id"`
 }
 
-// func getRunners(context *gin.Context) {
-// 	var runners []Runner
-// 	if err := context.BindJSON(&runners); err != nil {
-// 		return
-// 	}
-
-// 	context.JSON(http.StatusOK, gin.H{"data": runners})
-// }
-
 func getRunners(context *gin.Context) {
 
 	url := "https://api.beta.tab.com.au/v1/tab-info-service/racing/dates/2022-11-23/meetings/R/DBN/races/5?jurisdiction=QLD&returnPromo=false"
@@ -83,16 +74,6 @@ func main() {
 	client = &http.Client{Timeout: 10 * time.Second}
 	router := gin.Default()
 
-	// router.GET("/runners", func(c *gin.Context) {
-	// 	var runners []Runner
-	// 	if err := c.BindJSON(&runners); err != nil {
-	// 		return
-	// 	}
-
-	// 	c.JSON(http.StatusOK, gin.H{"data": runners})
-	// })
-
 	router.GET("/runners", getRunners)
-
 	router.Run(":8080")
 }
