@@ -11,13 +11,14 @@ import (
 
 var client *http.Client
 
-type Result struct {
-	RaceNumber int     `json:"raceNumber"`
-	Meeting    Meeting `json:"meeting"`
-}
-
 type Meeting struct {
 	MeetingName string `json:"meetingName"`
+	Location    string `json:"location"`
+}
+
+type Result struct {
+	RaceNumber int       `json:"raceNumber"`
+	Meetings   []Meeting `json:"meetings"`
 }
 
 type Runner struct {
