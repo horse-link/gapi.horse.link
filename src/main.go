@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"net/http"
 	"time"
-
 	"github.com/gin-gonic/gin"
+	"gpai/market"
 )
 
 var client *http.Client
@@ -35,6 +35,10 @@ type Runner struct {
 func getHelloWorld(context *gin.Context) {
 	context.IndentedJSON(http.StatusOK, gin.H{"message": "Hello World!"})
 }
+
+// func getMargin(context *gin.Context) {
+// 	context.IndentedJSON(http.StatusOK, gin.H{"message": "Hello World!"})
+// }
 
 func getRunners(context *gin.Context) {
 
@@ -80,6 +84,7 @@ func main() {
 	router := gin.Default()
 
 	router.GET("/", getHelloWorld)
+	router.GET("/market/margin", market.GetMargin)
 	router.GET("/runners", getRunners)
 	router.Run(":8080")
 }
